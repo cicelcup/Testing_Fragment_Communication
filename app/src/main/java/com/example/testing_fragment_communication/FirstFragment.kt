@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.lifecycle.ViewModelProvider
 
 /**
  * A simple [Fragment] subclass.
  */
 class FirstFragment : Fragment() {
+    private lateinit var sharedViewModel:SharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -19,4 +22,15 @@ class FirstFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_first, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        activity?.let {
+            sharedViewModel = ViewModelProvider(it)
+                .get(SharedViewModel::class.java)
+        }
+        val button: Button = view.findViewById(R.id.button)
+        button.setOnClickListener {
+            sharedViewModel.inputNumber.postValue(15)
+        }
+    }
 }
