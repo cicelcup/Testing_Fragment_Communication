@@ -30,7 +30,7 @@ class FirstFragment : Fragment() {
         }
         val button: Button = view.findViewById(R.id.button)
         button.setOnClickListener {
-            sharedViewModel.inputNumber.postValue(15)
+            sharedViewModel._inputNumber.postValue("JAPM")
         }
     }
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.testing_fragment_communication.databinding.FragmentSecondBinding
 import kotlinx.android.synthetic.main.fragment_second.*
 
 /**
@@ -14,13 +15,17 @@ import kotlinx.android.synthetic.main.fragment_second.*
  */
 class SecondFragment : Fragment() {
     private lateinit var sharedViewModel:SharedViewModel
+    private lateinit var binding: FragmentSecondBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_second, container, false)
+        binding = FragmentSecondBinding.inflate(
+            layoutInflater,container,false
+        )
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,9 +33,8 @@ class SecondFragment : Fragment() {
         activity?.let {
             sharedViewModel = ViewModelProvider(it)
                 .get(SharedViewModel::class.java)
-            sharedViewModel.inputNumber.observe(it, Observer {
-                textView2.text = "JAPM $it"
-            })
+            binding.viewModel = sharedViewModel
+            binding.lifecycleOwner = it
         }
     }
 }
