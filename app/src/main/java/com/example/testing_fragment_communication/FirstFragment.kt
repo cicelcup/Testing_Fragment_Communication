@@ -30,7 +30,10 @@ class FirstFragment : Fragment() {
         }
         val button: Button = view.findViewById(R.id.button)
         button.setOnClickListener {
-            sharedViewModel._inputNumber.postValue("JAPM")
+            //put the value for the binding
+            sharedViewModel._exampleText.postValue("JAPM")
+            //put the value for the observer
+            sharedViewModel._exampleText2.postValue("Jorge Augusto")
         }
     }
 }
