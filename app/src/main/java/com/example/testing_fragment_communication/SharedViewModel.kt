@@ -14,4 +14,10 @@ class SharedViewModel : ViewModel() {
     //    Variable used it with binding
     val _exampleText = MutableLiveData<String>("Jorge")
     val inputNumber: LiveData<String> = _exampleText
+
+//   Function to change the text in the text field (called in the view model)
+    fun changeText(){
+        _exampleText.value = "JAPM :-)"
+        _exampleText2.value = "Jorge Augusto >-)"
+    }
 }

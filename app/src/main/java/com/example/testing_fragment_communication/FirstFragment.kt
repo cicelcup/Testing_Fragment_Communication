@@ -7,33 +7,32 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
+import com.example.testing_fragment_communication.databinding.FragmentFirstBinding
+import com.example.testing_fragment_communication.databinding.FragmentSecondBinding
 
 /**
  * A simple [Fragment] subclass.
  */
 class FirstFragment : Fragment() {
     private lateinit var sharedViewModel:SharedViewModel
-
+    private lateinit var binding: FragmentFirstBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first, container, false)
+        binding = FragmentFirstBinding.inflate(layoutInflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.let {
+            //adding the viewModel to the fragment
             sharedViewModel = ViewModelProvider(it)
                 .get(SharedViewModel::class.java)
-        }
-        val button: Button = view.findViewById(R.id.button)
-        button.setOnClickListener {
-            //put the value for the binding
-            sharedViewModel._exampleText.postValue("JAPM")
-            //put the value for the observer
-            sharedViewModel._exampleText2.postValue("Jorge Augusto")
+            //Adding the view model to the binding
+            binding.viewModel = sharedViewModel
         }
     }
 }
